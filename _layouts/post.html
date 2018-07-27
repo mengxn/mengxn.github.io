@@ -13,6 +13,11 @@ layout: default
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-heading">
+          <div class="tags">
+              {% for tag in page.tags %}
+              <a class="tag" href="{{ site.baseurl }}/tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a>
+              {% endfor %}
+          </div>
           <h1>{{ page.title }}</h1>
           {% if page.subtitle %}
           <h2 class="subheading">{{ page.subtitle }}</h2>
@@ -45,6 +50,38 @@ layout: default
 
       </div>
 
+    </div>
+
+    <!-- Sidebar Container -->
+    <div class="col-lg-8 col-md-10 mx-auto sidebar-container">
+
+      <!-- Featured Tags -->
+      {% if site.featured-tags %}
+      <section>
+          <hr class="hidden-sm hidden-xs">
+          <h5 id="featured-tags"><a href="/tags/">FEATURED TAGS</a></h5>
+          <div class="tags">
+            {% for tag in site.tags %}
+              {% if tag[1].size > site.featured-condition-size %}
+                <a href="/tags/#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
+                            {{ tag[0] }}
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+      </section>
+      {% endif %}
+
+      <!-- Friends Blog -->
+      {% if site.friends %}
+      <hr>
+      <h5 id="friends">FRIENDS</h5>
+      <ul class="list-inline">
+          {% for friend in site.friends %}
+              <li><a href="{{friend.href}}">{{friend.title}}</a></li>
+          {% endfor %}
+      </ul>
+      {% endif %}
     </div>
   </div>
 </div>
